@@ -8,8 +8,7 @@ pipeline{
 
                 sh "rm -rf *"
                 sh "git clone https://github.com/RajDevO/custom-cicd.git"
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                
+                       
             }
         }
         stage('Build Docker Image') {
