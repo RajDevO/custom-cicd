@@ -2,13 +2,11 @@ pipeline{
     agent any
    
     stages {
-        stage('Clone Repo') {
-            
-            steps {
-
-                sh "rm -rf *"
-                sh "git clone https://github.com/RajDevO/custom-cicd.git"
-                       
+      
+        stage('Build Maven') {
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '32b3b981-5a47-4082-85dd-508e1eeec392', url: 'https://github.com/RajDevO/custom-cicd.git']]])
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"         
             }
         }
         stage('Build Docker Image') {
